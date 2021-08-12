@@ -1,5 +1,5 @@
 # Semana do Teste de API - Iterasys
-##### Teste de API
+##### Teste de API - PetStore
 
 ## Tecnologias Utilizadas
 
