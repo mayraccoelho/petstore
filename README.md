@@ -7,3 +7,7 @@
 - Gradle<br>
 - TestNG<br>
 - REST Assured<br>
+
+## API Utilizada
+
+https://petstore.swagger.io/
