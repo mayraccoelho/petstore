@@ -13,6 +13,7 @@ import static org.hamcrest.Matchers.contains;
 public class PetTest {
 	// Atributos
 	String uri = "https://petstore.swagger.io/v2/pet"; // ENDEREÇO ENTIDADE PET
+	String petId = "1305"; // ID PET
 
 	// Métodos
 	public String lerJson(String caminhoJson) throws IOException {
@@ -44,7 +45,7 @@ public class PetTest {
 
 	@Test(priority=2)
 	public void consultarPet() {
-		String petId = "1305";
+//		String petId = "1305";
 		String token = 
 				
 		RestAssured.given()
@@ -88,7 +89,7 @@ public class PetTest {
 	
 	@Test(priority=4)
 	public void deletarPet() throws IOException {
-		String petId = "1305";
+//		String petId = "1305";
 		
 		RestAssured.given()
 				.contentType("application/json")
@@ -100,7 +101,7 @@ public class PetTest {
 				.statusCode(200)
 				.body("code", is(200))
 				.body("type", is("unknown"))
-				.body("massage", is(petId))
+				.body("message", is(petId))
 		;
 	}
 
