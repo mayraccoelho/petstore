@@ -7,6 +7,8 @@ import java.nio.file.Paths;
 import org.testng.annotations.Test;
 
 import io.restassured.RestAssured;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.contains;
 
 public class PetTest {
 	// Atributos
@@ -32,7 +34,32 @@ public class PetTest {
 		.then() // Entao
 				.log().all()
 				.statusCode(200)
+				.body("name", is("Julio Cesar"))
+				.body("status", is("unavailable"))
+				.body("category.name", is("dog"))
+				.body("tags.name", contains("sta"))
+				
 		;		
 	}
 
+	@Test
+	public void consultarPet() {
+		String petId = "1305";
+		
+		RestAssured.given()
+				.contentType("application/json")
+				.log().all()
+		
+		.when()
+				.get(uri + "/" + petId)
+				
+		.then()
+				.log().all()
+				.statusCode(200)
+				.body("category.name", is("dog"))
+				.body("status", is("unavailable"))
+		;
+				
+		
+	}
 }
