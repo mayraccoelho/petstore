@@ -36,16 +36,17 @@ public class PetTest {
 				.statusCode(200)
 				.body("name", is("Julio Cesar"))
 				.body("status", is("unavailable"))
-				.body("category.name", is("dog"))
-				.body("tags.name", contains("sta"))
+				.body("category.name", is("MM1208DOG"))
+				.body("tags.name", contains("data"))
 				
 		;		
 	}
 
-	@Test
+	@Test(priority=2)
 	public void consultarPet() {
 		String petId = "1305";
-		
+		String token = 
+				
 		RestAssured.given()
 				.contentType("application/json")
 				.log().all()
@@ -56,10 +57,51 @@ public class PetTest {
 		.then()
 				.log().all()
 				.statusCode(200)
-				.body("category.name", is("dog"))
+				.body("name", is("Julio Cesar"))
+				.body("category.name", is("MM1208DOG"))
 				.body("status", is("unavailable"))
+		.extract()
+				.path("category.name")
 		;
 				
-		
+				System.out.println("O token é " + token);
 	}
+
+	@Test(priority=3)
+	public void alterarPet() throws IOException {
+		String jsonBody = lerJson("db/pet2.json");
+		
+		RestAssured.given()
+				.contentType("application/json")
+				.log().all()
+				.body(jsonBody)
+		.when()
+				.put(uri)
+		.then()
+				.log().all()
+				.statusCode(200)
+				.body("name", is("Julio Cesar"))
+				.body("category.name", is("MM1208DOG"))
+				.body("status", is("soldForMayra"))
+		;
+	}
+	
+	@Test(priority=4)
+	public void deletarPet() throws IOException {
+		String petId = "1305";
+		
+		RestAssured.given()
+				.contentType("application/json")
+				.log().all()
+		.when()
+				.delete(uri + "/" + petId)
+		.then()
+				.log().all()
+				.statusCode(200)
+				.body("code", is(200))
+				.body("type", is("unknown"))
+				.body("massage", is(petId))
+		;
+	}
+
 }
